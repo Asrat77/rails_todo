@@ -10,14 +10,22 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_05_31_060550) do
+ActiveRecord::Schema[7.0].define(version: 2023_05_31_071714) do
+  create_table "tasks", force: :cascade do |t|
+    t.string "title"
+    t.text "description"
+    t.integer "user_id", null: false
+    t.integer "status"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_id"], name: "index_tasks_on_user_id"
+  end
+
   create_table "todos", force: :cascade do |t|
     t.string "title"
     t.text "description"
     t.integer "user_id", null: false
     t.integer "status"
-    t.string "presence"
-    t.string "true"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["user_id"], name: "index_todos_on_user_id"
@@ -31,5 +39,6 @@ ActiveRecord::Schema[7.0].define(version: 2023_05_31_060550) do
     t.datetime "updated_at", null: false
   end
 
+  add_foreign_key "tasks", "users"
   add_foreign_key "todos", "users"
 end
